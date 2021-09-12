@@ -1,7 +1,9 @@
+image:
+  file: .gitpod.Dockerfile
+
 tasks:
   - name: ddev
     init: |
-      brew install drud/ddev/ddev
       ddev config global --instrumentation-opt-in=true
       ddev version | awk '/(drud|phpmyadmin)/ {print $2;}' >/tmp/images.txt
       while IFS= read -r item
