@@ -11,6 +11,7 @@ tasks:
         docker pull "$item"
       done < <(cat /tmp/images.txt)
     command: |
+      ddev config global --instrumentation-opt-in=true
       # This `ddev start` is expected to fail, because no special gitpod config was added
       ddev start
       # Because there's no `.gitignore` in `.ddev/` - the following command will display multiple files 
