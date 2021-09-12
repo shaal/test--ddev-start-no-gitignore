@@ -1,0 +1,15 @@
+tasks:
+  - name: ddev
+    init: |
+      brew install drud/ddev/ddev
+      ddev config global --instrumentation-opt-in=true
+      ddev version | awk '/(drud|phpmyadmin)/ {print $2;}' >/tmp/images.txt
+      while IFS= read -r item
+      do
+        docker pull "$item"
+      done < <(cat /tmp/images.txt)
+    command: |
+      # This `ddev start` is expected to fail, because no special gitpod config was added
+      ddev start
+      # Because there's no `.gitignore` in `.ddev/` - the following command will display multiple files 
+      git status
